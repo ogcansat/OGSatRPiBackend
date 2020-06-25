@@ -79,21 +79,21 @@ while True:
                     coordinates = received.split(' ')  
 
                     if len(coordinates) == 3:
-                        sub.call(["python3.7", "/home/pi/Documents/OGSatProject/scripts/project4/get-bpej.py", coordinates[1], coordinates[2]])
+                        sub.call(["python3.7", config.get("Paths", "BPEJscript"), coordinates[1], coordinates[2]])
                     elif len(coordinates) == 2:
-                        sub.call(["python3.7", "/home/pi/Documents/OGSatProject/scripts/project4/get-bpej.py", coordinates[1]])
+                        sub.call(["python3.7", config.get("Paths", "BPEJscript"), coordinates[1]])
                     time.sleep(1)
 
                     dev.write(pipe_bpej.readline())
                
                 elif received.startswith("get_plant"):
-                    pipe_plant = open("/home/pi/Documents/OGSatProject/scripts/project4/pipe_plant", "r")
+                    pipe_plant = open(config.get("Paths", "PipePlant"), "r")
 
                     bpej_code = received.split(' ')[1] 
 
                     print("BPEJ evaluating for plant...")
 
-                    sub.call(["python3.7", "/home/pi/Documents/OGSatProject/scripts/project4/get-plant.py", bpej_code])
+                    sub.call(["python3.7", config.get("Paths", "PlantScript"), bpej_code])
                     time.sleep(1)
 
                     dev.write(pipe_plant.readline())
@@ -126,7 +126,6 @@ while True:
             dev = None
         conn = False
         data_sending = False      
-        #pr.terminate()  
     
     time.sleep(0.5)
 

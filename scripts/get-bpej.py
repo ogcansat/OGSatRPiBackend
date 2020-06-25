@@ -3,7 +3,10 @@
 import shapely.geometry as geometry
 import json
 import sys
+import configparser
 
+config = configparser.ConfigParser()
+config.read("/home/pi/Documents/OGSatGitHub/config.conf")
 
 #Brno-venkov
 #c_long = 16.432409
@@ -32,7 +35,7 @@ if len(sys.argv) == 3:
     c_long = float(sys.argv[1])
     c_lat = float(sys.argv[2])
 elif len(sys.argv) == 2 and sys.argv[1] == "from_sat":
-    data = open("/home/pi/Documents/OGSatProject/scripts/project4/pipe_data", "r")
+    data = open(config.get("Paths", "PipeData"), "r")
     lines = data.readlines()
     if lines[0].split(',')[1] == "MessageID":
         c_long = float(lines[1].split(',')[7])
@@ -54,7 +57,7 @@ print("***** Start Phase 1 *****\n")
 print("Loading districts...")
 
 #file with coordinates of czechia districts
-dis_f = open("/home/pi/Documents/OGSatProject/scripts/project4/czechia_districts.json", "r", encoding="utf-8")
+dis_f = open(config.get("Paths", "DistrictsCoordinatesCZ"), "r", encoding="utf-8")
 dis_data = json.load(dis_f)
 
 districts = {}
@@ -63,7 +66,7 @@ for i in range(77):
     region = dis_data["features"][i]["properties"]["NAME_1"]
     
     #directory containing files of czechia-districts containing BPEJ codes for district
-    f = open("/home/pi/Documents/OGSatProject/scripts/project4/czechia-districts_corr/" + name + ".csv", "r", encoding="utf-8")
+    f = open(config.get("Paths", "DistrictsBPEJ") + "/" + name + ".csv", "r", encoding="utf-8")
 
     if dis_data["features"][i]["geometry"]["type"] == "Polygon":
         if len(dis_data["features"][i]["geometry"]["coordinates"]) == 2:
@@ -96,7 +99,7 @@ for d in districts.items():
         break
 
 if f_search == None:
-    f = open("/home/pi/Documents/OGSatProject/scripts/project4/pipe_bpej", "w")
+    f = open(config.get("Paths", "PipeBPEJ"), "w")
     f.write("0.00.00" + "," + dis_now + "," + region_now)
     f.close()
     sys.exit()
@@ -140,7 +143,7 @@ for row in f_search.readlines():
 
 print("Nearest BPEJ for your location: " + str(near_bpej))
 
-f = open("/home/pi/Documents/OGSatProject/scripts/project4/pipe_bpej", "w")
+f = open(config.get("Paths", "PipeBPEJ"), "w")
 f.write(near_bpej + "," + dis_now + "," + region_now)
 f.close()
 
