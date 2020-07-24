@@ -1,0 +1,11 @@
+Kód;Hloubka (cm);Charakteristika;Charakteristika;Celkový obsah skeletu (%)
+0;od 60;hluboká;bezskeletovitá, s příměsí;do 10
+1;od 30;hluboká, středně hluboká;bezskeletovitá, s příměsí, slabě skeletovitá;do 25
+2;od 60;hluboká;slabě skeletovitá;10-25
+3;od 60;hluboká;středně skeletovitá;25-50
+4;od 30;hluboká, středně hluboká;středně skeletovitá;25-50
+5;0-30;mělká;slabě skeletovitá;10-25
+6;0-30;mělká;středně skeletovitá;25-50
+7;od 30;hluboká, středně hluboká;bezskeletovitá, s příměsí, slabě skeletovitá;do 25
+8;od 0;hluboká, středně hluboká, mělká;středně skeletovitá, silně skleletovitá;od 25
+9;od 0;hluboká, středně hluboká, mělká;bezskeletovitá, s příměsí, slabě skeletovitá, středně skeletovitá, silně skleletovitá;0-100

@@ -97,6 +97,24 @@ while True:
                     time.sleep(1)
 
                     dev.write(pipe_plant.readline())
+                elif received.startswith("getBPEJ"):
+                    data = received.split(' ')
+                    region = data[1]    
+                    code = data[2]
+                    print("evaluating")
+                    if region == "climate":
+                        sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), code])
+
+
+
+                    pipe_infoBPEJ = open(config.get("Paths", "PipeBPEJinfo"), "r")
+
+
+
+
+                    print("Sending info about BPEJ...")
+
+                    dev.write(pipe_infoBPEJ.read())
 
                 
             if data_sending:

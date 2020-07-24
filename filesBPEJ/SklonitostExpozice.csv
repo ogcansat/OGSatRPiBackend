@@ -1,0 +1,11 @@
+Kód;Sklon;Sklon (°);Orientace k světovým stranám;Poznámky
+0;úplná rovina, rovina;0-3;rovina se všesměrnou expozicí, jih (jihozápad až jihovýchod), východ a západ (jihozápad až severozápad, jihovýchod až severovýchod), sever (severozápad až severovýchod);
+1;mírný sklon;3-7;rovina se všesměrnou expozicí, jih (jihozápad až jihovýchod), východ a západ (jihozápad až severozápad, jihovýchod až severovýchod), sever (severozápad až severovýchod);
+2;mírný sklon;3-7;jih (jihozápad až jihovýchod), východ a západ (jihozápad až severozápad, jihovýchod až severovýchod);
+3;mírný sklon;3-7;sever (severozápad až severovýchod);
+4;střední sklon;7-12;jih (jihozápad až jihovýchod), východ a západ (jihozápad až severozápad, jihovýchod až severovýchod);
+5;střední sklon;7-12;východ a západ (jihozápad až severozápad, jihovýchod až severovýchod), sever (severozápad až severovýchod);
+6;výrazný sklon;12-17;jih (jihozápad až jihovýchod), východ a západ (jihozápad až severozápad, jihovýchod až severovýchod);
+7;výrazný sklon;12-17;sever (severozápad až severovýchod);
+8;příkrý sklon, sráz;od 17;jih (jihozápad až jihovýchod), východ a západ (jihozápad až severozápad, jihovýchod až severovýchod);
+9;příkrý sklon, sráz;od 17;sever (severozápad až severovýchod);
