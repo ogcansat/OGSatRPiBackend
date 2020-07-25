@@ -102,14 +102,11 @@ while True:
                 elif received.startswith("getBPEJ"):
                     argsBPEJ = received.split(' ')
 
-                    typeBPEJ = argsBPEJ[1]
-                    codeBPEJ = argsBPEJ[2]
+                    codeBPEJ = argsBPEJ[1]
 
-                    sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), typeBPEJ, codeBPEJ])
-                    
+                    sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), codeBPEJ])
 
-
-                    print("Sending info about BPEJ to mobile...")
+                    print("Sending BPEJ info about a code " + codeBPEJ + " to the mobile...")
 
                     pipe_infoBPEJ = open(config.get("Paths", "PipeBPEJinfo"), "r")
                     dev.write(pipe_infoBPEJ.read())

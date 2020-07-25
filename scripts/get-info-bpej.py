@@ -8,19 +8,17 @@ config.read("/home/pi/Documents/OGSatGitHub/config.conf")
 
 files = config.get("Paths", "FilesBPEJ")
 
-typeBPEJ = sys.argv[1]
-codeBPEJ = int(sys.argv[2])
+codeBPEJ = sys.argv[1]
 
-if typeBPEJ == "climate":
-    df = pandas.read_csv(files + "/KlimatickyRegion.csv", sep=";", encoding="utf-8")
-    df.loc[[codeBPEJ]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8")
-elif typeBPEJ == "inclination":
-    df = pandas.read_csv(files + "/SklonitostExpozice.csv", sep=";", encoding="utf-8")
-    df.loc[[codeBPEJ]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8")
-elif typeBPEJ == "soil_depth":
-    df = pandas.read_csv(files + "/HloubkaPudySkeletovitost.csv", sep=";", encoding="utf-8")
-    df.loc[[codeBPEJ]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8")
-elif typeBPEJ == "soil_unit":
-    df = pandas.read_csv(files + "/HlavniPudniJednotka.csv", sep=";", encoding="utf-8")
-    df.loc[[codeBPEJ]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8")
 
+df = pandas.read_csv(files + "/KlimatickyRegion.csv", sep=";", encoding="utf-8")
+df.loc[[int(codeBPEJ[0])]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="w")
+
+df = pandas.read_csv(files + "/SklonitostExpozice.csv", sep=";", encoding="utf-8")
+df.loc[[int(codeBPEJ[2])]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="a")
+
+df = pandas.read_csv(files + "/HloubkaPudySkeletovitost.csv", sep=";", encoding="utf-8")
+df.loc[[int(codeBPEJ[3])]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="a")
+
+# df = pandas.read_csv(files + "/HlavniPudniJednotka.csv", sep=";", encoding="utf-8")
+# df.loc[[codeBPEJ]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="a")
