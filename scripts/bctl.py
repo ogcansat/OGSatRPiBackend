@@ -8,6 +8,8 @@ import subprocess as sub
 import sys
 import traceback
 import ConfigParser
+import pandas as p
+import io
 
 def write_data(columns, data, delimiter=':'):
     i = 0
@@ -98,23 +100,20 @@ while True:
 
                     dev.write(pipe_plant.readline())
                 elif received.startswith("getBPEJ"):
-                    data = received.split(' ')
-                    region = data[1]    
-                    code = data[2]
-                    print("evaluating")
-                    if region == "climate":
-                        sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), code])
+                    argsBPEJ = received.split(' ')
+
+                    typeBPEJ = argsBPEJ[1]
+                    codeBPEJ = argsBPEJ[2]
+
+                    sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), typeBPEJ, codeBPEJ])
+                    
 
 
+                    print("Sending info about BPEJ to mobile...")
 
                     pipe_infoBPEJ = open(config.get("Paths", "PipeBPEJinfo"), "r")
-
-
-
-
-                    print("Sending info about BPEJ...")
-
                     dev.write(pipe_infoBPEJ.read())
+                    
 
                 
             if data_sending:
