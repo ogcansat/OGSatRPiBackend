@@ -110,6 +110,10 @@ while True:
 
                     pipe_infoBPEJ = open(config.get("Paths", "PipeBPEJinfo"), "r")
                     dev.write(pipe_infoBPEJ.read())
+                elif received.startswith("getPlants"):
+                    plants = open(config.get("Paths","FilesBPEJ") + "/Rostliny.csv", "r").read()
+                    dev.write(plants)
+                    
                     
 
                 
