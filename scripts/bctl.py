@@ -70,7 +70,7 @@ while True:
                     elif data_dev == "bs":
                         data_sat = False
                         data_sending = True
-                elif received == "dataOFF":
+                elif received.startswith("dataOFF"):
                     data_sending = False
                 elif received == "restartOG":
                     sub.call(["sudo", "systemctl", "restart", "bs-monitor.service"])   
