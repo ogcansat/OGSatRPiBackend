@@ -72,6 +72,7 @@ while True:
                         data_sending = True
                 elif received.startswith("dataOFF"):
                     data_sending = False
+                    dev.write("Listening was cancelled.")
                 elif received == "restartOG":
                     sub.call(["sudo", "systemctl", "restart", "bs-monitor.service"])   
                 elif received.startswith("get_bpej"):
@@ -86,7 +87,9 @@ while True:
                         sub.call(["python3.7", config.get("Paths", "BPEJscript"), coordinates[1]])
                     time.sleep(1)
 
-                    dev.write(pipe_bpej.readline())
+                    test = pipe_bpej.readline()
+                    print("Sending " + test)
+                    dev.write(test)
                
                 elif received.startswith("get_plant"):
                     pipe_plant = open(config.get("Paths", "PipePlant"), "r")
