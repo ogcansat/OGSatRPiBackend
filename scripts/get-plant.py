@@ -6,12 +6,13 @@ from sklearn.neighbors import KNeighborsClassifier
 import sys
 import configparser
 import csv
+import random
 
 config = configparser.ConfigParser()
 config.read("/home/pi/Documents/OGSatGitHub/config.conf")
 
-#bpej = sys.argv[1]
-bpej = "2.50.10"
+bpej = sys.argv[1]
+#bpej = "6.20.70"
 
 bpej_v = bpej.split('.')
 # df = p.DataFrame({"Bříza bělokorá (strom)": ["Pravděpodobnost: 80%"]})
@@ -27,8 +28,9 @@ mySet = p.DataFrame(columns = ["Rostlina", "Klimatický region","Hlavní půdní
 for i in range(len(df.index)):
     for j in range(5):
         plant = str(df.iloc[i,0]) + " " + str(df.iloc[i,1]) + " (" + str(df.iloc[i,2]) + ")"
-        df2 = p.DataFrame([[plant, 2,4,5,6]], columns = ["Rostlina", "Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"])
+        df2 = p.DataFrame([[plant, random.choice(str(codes.loc[i, "Klimatický region"]).split(',')),random.choice(str(codes.loc[i, "Hlavní půdní jednotka"]).split(',')),random.choice(str(codes.loc[i, "Sklonitost a expozice"]).split(',')),random.choice(str(codes.loc[i, "Skeletovitost a hloubka půdy"]).split(','))]], columns = ["Rostlina", "Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"])
         mySet= mySet.append(df2)
+
 
 
 #x_train = df[["Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"]]
@@ -36,6 +38,8 @@ for i in range(len(df.index)):
 
 y_train = mySet[["Rostlina"]]
 x_train = mySet[["Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"]]
+
+#x_train.to_csv(config.get("Paths", "PipePlant"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="w")
 
 #x_train = x_train[0][0].str.split(",", expand=True)
 
@@ -45,11 +49,25 @@ x_train = mySet[["Klimatický region","Hlavní půdní jednotka","Sklonitost a e
 ai_plant = KNeighborsClassifier()
 ai_plant.fit(x_train, y_train)
 
-plant = ai_plant.predict_proba([[bpej_v[0],bpej_v[1],bpej_v[2][0],bpej_v[2][1]]])[0]
-
-#plant = ai_plant.predict_proba([[bpej_v[0]]])[0]
+plant_proba = ai_plant.predict_proba([[bpej_v[0],bpej_v[1],bpej_v[2][0],bpej_v[2][1]]])[0]
 
 pipe_plant = open(config.get("Paths", "PipePlant"), "w")
-print(str(plant))
-pipe_plant.write(str(plant))
+
+for x in range(len(df.index)):
+    plant = str(df.iloc[x,0]) + " " + str(df.iloc[x,1]) + " (" + str(df.iloc[x,2]) + ")"
+    if (len(df.index) - 1) > x:
+        plant = plant + ";"
+    pipe_plant.write(plant)
+
+pipe_plant.write("\n")
+
+for y in range(len(plant_proba)):
+    pipe_plant.write("Pravděpodobnost: " + '{0:.0%}'.format(plant_proba[y]))
+    if (len(plant_proba) -1) > y:
+        pipe_plant.write(';')
+
 pipe_plant.close()
+
+
+print(str(plant_proba))
+

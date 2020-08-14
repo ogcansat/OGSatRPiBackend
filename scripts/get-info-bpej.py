@@ -9,7 +9,7 @@ config.read("/home/pi/Documents/OGSatGitHub/config.conf")
 
 files = config.get("Paths", "FilesBPEJ")
 
-codeBPEJ = "6.40.50" #sys.argv[1]
+codeBPEJ = sys.argv[1]
 
 subprocess.call(["python3.7", config.get("Paths", "PlantScript"), codeBPEJ])
 df = pandas.read_csv(config.get("Paths", "PipePlant"), sep=";", encoding="utf-8")
