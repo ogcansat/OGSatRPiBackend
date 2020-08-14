@@ -53,18 +53,22 @@ plant_proba = ai_plant.predict_proba([[bpej_v[0],bpej_v[1],bpej_v[2][0],bpej_v[2
 
 pipe_plant = open(config.get("Paths", "PipePlant"), "w")
 
+plant_line = ""
+proba_line = ""
+
 for x in range(len(df.index)):
-    plant = str(df.iloc[x,0]) + " " + str(df.iloc[x,1]) + " (" + str(df.iloc[x,2]) + ")"
-    if (len(df.index) - 1) > x:
-        plant = plant + ";"
-    pipe_plant.write(plant)
+    if (plant_proba[x] == 0):
+        continue
+    else:
+        plant_line += str(df.iloc[x,0]) + " " + str(df.iloc[x,1]) + " (" + str(df.iloc[x,2]) + ")"
+        proba_line += "Vhodnost: " + '{0:.0%}'.format(plant_proba[x])
+        if (len(df.index) - 1) > x:
+            plant_line += ";"
+            proba_line += ";"
 
+pipe_plant.write(plant_line)
 pipe_plant.write("\n")
-
-for y in range(len(plant_proba)):
-    pipe_plant.write("Pravděpodobnost: " + '{0:.0%}'.format(plant_proba[y]))
-    if (len(plant_proba) -1) > y:
-        pipe_plant.write(';')
+pipe_plant.write(proba_line)
 
 pipe_plant.close()
 

@@ -39,7 +39,7 @@ while True:
         conn = True if os.path.exists("/dev/rfcomm0") else False
 
         if dev == None and conn:
-            dev = serial.Serial("/dev/rfcomm0")
+            dev = serial.Serial(port="/dev/rfcomm0", baudrate=9600)
             print("Communication established.")
 
             
@@ -107,11 +107,12 @@ while True:
 
                     codeBPEJ = argsBPEJ[1]
 
-                    sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), codeBPEJ])
+                    sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), codeBPEJ, argsBPEJ[2]])
 
                     print("Sending BPEJ info about a code " + codeBPEJ + " to the mobile...")
 
                     pipe_infoBPEJ = open(config.get("Paths", "PipeBPEJinfo"), "r")
+
                     dev.write(pipe_infoBPEJ.read())
                 elif received.startswith("getPlants"):
                     plants = open(config.get("Paths","FilesBPEJ") + "/Rostliny.csv", "r").read()

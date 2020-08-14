@@ -1,10 +1,4 @@
-Bříza bělokorá (strom);Bříza pýřitá (strom);Lípa malolistá (srdčitá) (strom);Javor klen (strom);Javor mléč (strom);Smrk ztepilý (strom);Borovice lesní (strom)
-Pravděpodobnost: 0%;Pravděpodobnost: 0%;Pravděpodobnost: 40%;Pravděpodobnost: 0%;Pravděpodobnost: 0%;Pravděpodobnost: 60%;Pravděpodobnost: 0%
-Kód;Označení;Suma teplot nad 10°C;Průměrná roční teplota °C;Průměrný úhrn srážek (mm);Pravděpodobnost suchých vegetačních období v %;Vláhová jistota ve vegetačním období;Rozšíření;Poznámky
-3;Teplý, mírně vlhký (T3);2500-2800;8-9;550-650;10-20;4-7;severní a východní část České křídové tabule, celý Hornomoravský úval, severní část Dolnomoravského úvalu a nejnižší polohy Boskovické brázdy;
-Kód;Sklon;Sklon (°);Orientace k světovým stranám;Poznámky
-2;mírný sklon;3-7;jih (jihozápad až jihovýchod), východ a západ (jihozápad až severozápad, jihovýchod až severovýchod);
-Kód;Hloubka (cm);Charakteristika;Charakteristika.1;Celkový obsah skeletu (%)
-2;od 60;hluboká;slabě skeletovitá;10-25
-1
-Černozemě luvické na sprašových pokryvech, středně těžké, bez skeletu, převážně s příznivým
+Popis kódu 05
+Černozemě pelické a černozemě černické pelické na velmi těžkých substrátech (jílech, slínech,
+karpatském flyši a tercierních sedimentech), těžké až velmi těžké s vylehčeným orničním horizontem,
+ojediněle štěrkovité, s tendencí povrchového převlhčení v profilu
