@@ -12,12 +12,8 @@ config = configparser.ConfigParser()
 config.read("/home/pi/Documents/OGSatGitHub/config.conf")
 
 bpej = sys.argv[1]
-#bpej = "6.20.70"
 
 bpej_v = bpej.split('.')
-# df = p.DataFrame({"Bříza bělokorá (strom)": ["Pravděpodobnost: 80%"]})
-# df.to_csv(config.get("Paths", "PipePlant"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="w")
-
 
 df = p.read_csv(config.get("Paths", "PlantTrainFileAI"), sep=";",encoding="utf8")
 
@@ -26,25 +22,20 @@ codes = df[["Klimatický region","Hlavní půdní jednotka","Sklonitost a expozi
 mySet = p.DataFrame(columns = ["Rostlina", "Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"])
 
 for i in range(len(df.index)):
-    for j in range(5):
+    for j in range(50):
         plant = str(df.iloc[i,0]) + " " + str(df.iloc[i,1]) + " (" + str(df.iloc[i,2]) + ")"
         df2 = p.DataFrame([[plant, random.choice(str(codes.loc[i, "Klimatický region"]).split(',')),random.choice(str(codes.loc[i, "Hlavní půdní jednotka"]).split(',')),random.choice(str(codes.loc[i, "Sklonitost a expozice"]).split(',')),random.choice(str(codes.loc[i, "Skeletovitost a hloubka půdy"]).split(','))]], columns = ["Rostlina", "Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"])
         mySet= mySet.append(df2)
-
-
-
-#x_train = df[["Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"]]
 
 
 y_train = mySet[["Rostlina"]]
 x_train = mySet[["Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"]]
 
 #x_train.to_csv(config.get("Paths", "PipePlant"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="w")
-
 #x_train = x_train[0][0].str.split(",", expand=True)
 
-# #scaler = MinMaxScaler(feature_range=(0, 9))
-# #x_train = scaler.fit_transform(x_train)
+#scaler = MinMaxScaler(feature_range=(0, 9))
+#x_train = scaler.fit_transform(x_train)
 
 ai_plant = KNeighborsClassifier()
 ai_plant.fit(x_train, y_train)
