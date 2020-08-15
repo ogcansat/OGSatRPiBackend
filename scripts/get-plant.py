@@ -42,7 +42,7 @@ ai_plant.fit(x_train, y_train)
 
 plant_proba = ai_plant.predict_proba([[bpej_v[0],bpej_v[1],bpej_v[2][0],bpej_v[2][1]]])[0]
 
-pipe_plant = open(config.get("Paths", "PipePlant"), "w")
+pipe_plant = open(config.get("Paths", "PipeBPEJinfo"), "w")
 
 plant_line = ""
 proba_line = ""

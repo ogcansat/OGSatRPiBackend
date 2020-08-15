@@ -106,13 +106,16 @@ while True:
                     argsBPEJ = received.split(' ')
 
                     codeBPEJ = argsBPEJ[1]
+                    typeBPEJ = argsBPEJ[2]
 
-                    sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), codeBPEJ, argsBPEJ[2]])
+                    if typeBPEJ == "plants":
+                        sub.call(["sudo", "-u", "pi", "python3.7", config.get("Paths", "PlantScript"), codeBPEJ])
+                    else:
+                        sub.call(["python3.7", config.get("Paths", "ScriptInfoBPEJ"), codeBPEJ, typeBPEJ])
 
                     print("Sending BPEJ info about a code " + codeBPEJ + " to the mobile...")
 
                     pipe_infoBPEJ = open(config.get("Paths", "PipeBPEJinfo"), "r")
-
                     dev.write(pipe_infoBPEJ.read())
                 elif received.startswith("getPlants"):
                     plants = open(config.get("Paths","FilesBPEJ") + "/Rostliny.csv", "r").read()

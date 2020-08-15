@@ -18,11 +18,11 @@ files = config.get("Paths", "FilesBPEJ")
 codeBPEJ = sys.argv[1]
 typeBPEJ = sys.argv[2]
 
-if typeBPEJ == "plants":
-    subprocess.call(["python3.7", config.get("Paths", "PlantScript"), codeBPEJ])
-    df = pandas.read_csv(config.get("Paths", "PipePlant"), sep=";", encoding="utf-8")
-    df.to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="w")
-elif typeBPEJ == "climate":
+# if typeBPEJ == "plants":
+#     subprocess.call(["python3.7", config.get("Paths", "PlantScript"), codeBPEJ])
+#     df = pandas.read_csv(config.get("Paths", "PipePlant"), sep=";", encoding="utf-8")
+#     df.to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="w")
+if typeBPEJ == "climate":
     df = pandas.read_csv(files + "/KlimatickyRegion.csv", sep=";", encoding="utf-8")
     df.loc[[int(codeBPEJ[0])]].to_csv(config.get("Paths", "PipeBPEJinfo"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="w")
 elif typeBPEJ == "inclination":
