@@ -8,6 +8,15 @@ import configparser
 import csv
 import random
 
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
+
+
+print("***** Start Phase 1 *****")
+
+print("\nProcessing file with the plants...")
 config = configparser.ConfigParser()
 config.read("/home/pi/Documents/OGSatGitHub/config.conf")
 
@@ -31,16 +40,35 @@ for i in range(len(df.index)):
 y_train = mySet[["Rostlina"]]
 x_train = mySet[["Klimatický region","Hlavní půdní jednotka","Sklonitost a expozice","Skeletovitost a hloubka půdy"]]
 
+print("Done.\n")
+
+print("***** End Phase 1 *****")
+
 #x_train.to_csv(config.get("Paths", "PipePlant"), header=True, index=False, sep=";", quoting=None, encoding="utf-8", mode="w")
 #x_train = x_train[0][0].str.split(",", expand=True)
 
 #scaler = MinMaxScaler(feature_range=(0, 9))
 #x_train = scaler.fit_transform(x_train)
 
+
+print("***** Start Phase 2 *****")
+
+print("\nTraining a new model...")
+
 ai_plant = KNeighborsClassifier()
 ai_plant.fit(x_train, y_train)
 
+print("Done\n")
+
+print("***** End Phase 2 *****")
+
+print("***** Start Phase 3 *****")
+
+print("\nPredicting the most suitable plants...")
+
 plant_proba = ai_plant.predict_proba([[bpej_v[0],bpej_v[1],bpej_v[2][0],bpej_v[2][1]]])[0]
+
+print("Writing down the results...")
 
 pipe_plant = open(config.get("Paths", "PipeBPEJinfo"), "w")
 
@@ -63,6 +91,11 @@ pipe_plant.write(proba_line)
 
 pipe_plant.close()
 
+print("Done.\n")
 
-print(str(plant_proba))
+
+
+print("***** End Phase 3 *****")
+
+# print(str(plant_proba))
 
